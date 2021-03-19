@@ -20,7 +20,7 @@ private CartRepository cartRepository;
     public void removeItemFromCart(String cartId, String itemId) {
         Cart cart = cartRepository.findById(cartId,new PartitionKey(cartId)).get();
         List<CartItem> items =cart.getItems();
-        if(items.size() ==1) {deleteCart(cartId,cartId); return;}
+        if(items.size() ==1) {deleteCart(cartId); return;}
         cart.setSubTotal(cart
                 .getSubTotal()
                 .subtract(getPrice(itemId, cart)));
@@ -48,8 +48,8 @@ private CartRepository cartRepository;
     }
 
     @Override
-    public void deleteCart(String id, String partitionKey) {
-        cartRepository.deleteById(id,new PartitionKey(partitionKey));
+    public void deleteCart(String id) {
+        cartRepository.deleteById(id,new PartitionKey(id));
     }
 
     @Override

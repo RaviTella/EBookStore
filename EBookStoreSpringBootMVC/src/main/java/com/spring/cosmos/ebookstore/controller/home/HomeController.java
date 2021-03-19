@@ -1,8 +1,8 @@
 package com.spring.cosmos.ebookstore.controller.home;
 
+import com.spring.cosmos.ebookstore.client.cart.CartServiceClient;
 import com.spring.cosmos.ebookstore.model.book.BookRepositoryAsync;
 import com.spring.cosmos.ebookstore.model.book.Response;
-import com.spring.cosmos.ebookstore.model.cart.CartService;
 import com.spring.cosmos.ebookstore.security.SecuredCustomer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,19 +18,19 @@ import javax.servlet.http.HttpSession;
 public class HomeController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final BookRepositoryAsync bookRepository;
-    private final CartService cartService;
+    private final CartServiceClient cartServiceClient;
 
     @Autowired
-    public HomeController(BookRepositoryAsync bookRepository, CartService cartService) {
+    public HomeController(BookRepositoryAsync bookRepository, CartServiceClient cartServiceClient) {
         this.bookRepository = bookRepository;
-        this.cartService = cartService;
+        this.cartServiceClient = cartServiceClient;
     }
 
 
     @RequestMapping(value = "/ebooks/index", method = { RequestMethod.GET, RequestMethod.POST })
     public String home(Model model, HttpSession session, @AuthenticationPrincipal SecuredCustomer securedUser) {
         model.addAttribute("response",bookRepository.getBooks(18,1));
-        model.addAttribute("cartItemCount", cartService.getNumberOfItemsInTheCart(session.getId()));
+        model.addAttribute("cartItemCount", cartServiceClient.getNumberOfItemsInTheCart(session.getId()));
           model.addAttribute("customer", securedUser);
         return "index";
     }

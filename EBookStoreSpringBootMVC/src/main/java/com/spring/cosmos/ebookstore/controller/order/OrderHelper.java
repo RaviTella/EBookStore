@@ -1,14 +1,8 @@
 package com.spring.cosmos.ebookstore.controller.order;
 
-import com.azure.cosmos.models.PartitionKey;
 import com.spring.cosmos.ebookstore.model.cart.Cart;
 import com.spring.cosmos.ebookstore.model.order.LineItem;
 import com.spring.cosmos.ebookstore.model.order.Order;
-import com.spring.cosmos.ebookstore.model.user.Address;
-import com.spring.cosmos.ebookstore.model.user.CreditCard;
-import com.spring.cosmos.ebookstore.model.user.Customer;
-import com.spring.cosmos.ebookstore.model.user.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

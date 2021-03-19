@@ -26,4 +26,15 @@ public class CartServiceClientFallback implements CartServiceClient{
         logger.warn("Circuit breaker is Open. Cart Service not available.");
         return new ResponseEntity<String>("123456789", HttpStatus.OK);
     }
+
+    @Override
+    public Integer getNumberOfItemsInTheCart(String cartId) {
+        logger.warn("Circuit breaker is Open. Cart Service not available.");
+        return -1;
+    }
+
+    @Override
+    public ResponseEntity<String> deleteCart(String cartId) {
+        return new ResponseEntity<>(cartId, HttpStatus.OK);
+    }
 }

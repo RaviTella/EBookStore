@@ -1,7 +1,6 @@
 package com.spring.cosmos.ebookstore.controller.cart;
 
 import com.spring.cosmos.ebookstore.client.cart.CartServiceClient;
-import com.spring.cosmos.ebookstore.model.cart.CartService;
 import com.spring.cosmos.ebookstore.model.cart.Cart;
 import com.spring.cosmos.ebookstore.model.cart.CartItem;
 import com.spring.cosmos.ebookstore.security.SecuredCustomer;
@@ -19,12 +18,10 @@ import java.util.UUID;
 @Controller
 public class CartController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private final CartService cartService;
     private final CartServiceClient cartServiceClient;
 
     @Autowired
-    public CartController(CartService cartService, CartServiceClient cartServiceClient) {
-        this.cartService = cartService;
+    public CartController( CartServiceClient cartServiceClient) {
         this.cartServiceClient=cartServiceClient;
     }
 

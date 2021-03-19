@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -26,8 +25,8 @@ public class CartController {
         this.cartService = cartService;
     }
 
-    @PostMapping(value = "/ebooks/cart/{cartId}")
-    public ResponseEntity<String>addItem(@RequestBody CartItem item, @PathVariable String cartId) {
+    @PostMapping(value = "/ebooks/carts/{cartId}")
+    public ResponseEntity<String>addItemToCart(@RequestBody CartItem item, @PathVariable String cartId) {
         item.setId(UUID
                 .randomUUID()
                 .toString());
@@ -38,7 +37,7 @@ public class CartController {
         return new ResponseEntity<>(cartId, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/ebooks/cart/{cartId}")
+    @GetMapping(value = "/ebooks/carts/{cartId}")
     public Cart getCart(@PathVariable String cartId) {
         Cart cart = cartService
                .getCart(cartId);
@@ -46,12 +45,25 @@ public class CartController {
 
     }
 
-    @DeleteMapping(value = "/ebooks/cart/{cartId}/item/{itemId}")
-    public ResponseEntity<String> deleteItem(@PathVariable String cartId, @PathVariable String itemId) {
+    @GetMapping(value = "/ebooks/carts/{cartId}/items/count")
+    public Integer getNumberOfItemsInTheCart(@PathVariable String cartId) {
+        return cartService.getNumberOfItemsInTheCart(cartId);
+
+    }
+
+    @DeleteMapping(value = "/ebooks/carts/{cartId}/items/{itemId}")
+    public ResponseEntity<String> removeItemFromCart(@PathVariable String cartId, @PathVariable String itemId) {
         logger.info("deleting cart item with id" + itemId);
         cartService
                 .removeItemFromCart(cartId, itemId);
         return new ResponseEntity<>(cartId, HttpStatus.OK);
     }
+
+    @DeleteMapping(value = "/ebooks/carts/{cartId}")
+    public ResponseEntity<String> deleteCart(@PathVariable String cartId){
+        cartService.deleteCart(cartId);
+        return new ResponseEntity<>(cartId, HttpStatus.OK);
+    }
+
 
 }
