@@ -43,9 +43,7 @@ public class CartController {
         Cart cart= cartServiceClient.getCart(session.getId());
         model.addAttribute("customer", securedUser);
         model.addAttribute("cart", cart);
-        model.addAttribute("cartItemCount", cart
-                .getItems()
-                .size());
+        model.addAttribute("cartItemCount", cartServiceClient.getNumberOfItemsInTheCart(session.getId()));
         return "cart";
 
     }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "EBOOKSTORESPRINGBOOTCUSTSERVICE",fallback = CustomerServiceClientFallback.class)
+@FeignClient(name = "CUSTOMERSERVICE",fallback = CustomerServiceClientFallback.class)
 public interface CustomerServiceClient {
 
     @GetMapping(value = "/ebooks/customers/{customerId}")

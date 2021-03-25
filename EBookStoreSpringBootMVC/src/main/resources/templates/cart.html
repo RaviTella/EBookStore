@@ -94,11 +94,17 @@
 <!--Section: Block Content-->
 <section class="padding-y-sm">
     <div class="container-fluid">
-        <div class="row justify-content-center d-flex align-items-center" th:if="${cart == null || #lists.size(cart.items) == 0 }">
+        <div class="row justify-content-center d-flex align-items-center" th:if="${cartItemCount == -1 }">
+            <h2 class="text-center">Shopping cart is temporary unavailable</h2>
+        </div>
+        <div class="row justify-content-center d-flex align-items-center" th:if="${cartItemCount == 0 }">
             <h2 class="text-center">Your shopping cart is empty!</h2>
         </div>
-        <div class="row justify-content-center d-flex align-items-center" th:if="${cart == null || #lists.size(cart.items) == 0 }">
-            <a th:href="@{/ebooks/index}" class="btn btn-warning btn-lg">Continue shopping</a>
+        <div class="row justify-content-center d-flex align-items-center" th:if="${cartItemCount == -1 }">
+            <a th:href="@{/ebooks/index}" class="btn btn-warning btn-lg">Continue Browsing</a>
+        </div>
+        <div class="row justify-content-center d-flex align-items-center" th:if="${ cartItemCount == 0 }">
+            <a th:href="@{/ebooks/index}" class="btn btn-warning btn-lg">Continue Shopping</a>
         </div>
         <!--Grid row-->
         <div class="row " th:if="${cart != null && #lists.size(cart.items) > 0 }">

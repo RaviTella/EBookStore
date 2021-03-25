@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@FeignClient(name = "EBOOKSTORESPRINGBOOTORDERSERVICE",fallback = OrderServiceClientFallback.class)
+@FeignClient(name = "ORDERSERVICE",fallback = OrderServiceClientFallback.class)
 public interface OrderServiceClient {
 
     @GetMapping(value = "/ebooks/customers/{customerId}/orders")
