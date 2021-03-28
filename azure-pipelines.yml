@@ -25,3 +25,12 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+
+- task: AzureCLI@1
+  inputs:
+    azureSubscription: rt-spring-cloud
+    scriptLocation: inlineScript
+    inlineScript: |
+      az extension add -y --name spring-cloud
+       az spring-cloud app deploy -n bookstore-frontend -s rtspringcloud -g rt-springcloud_rg --jar-path ./target/EBookStoreSpringBootMVC-0.0.1-SNAPSHOT.jar
+      # deploy other app
