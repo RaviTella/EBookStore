@@ -7,7 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name = "CARTSERVICE",fallback = CartServiceClientFallback.class)
+
+
 public interface CartServiceClient {
+
+
     @GetMapping(value = "/ebooks/carts/{cartId}")
     public Cart getCart(@PathVariable String cartId);
 

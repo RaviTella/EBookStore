@@ -10,10 +10,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CartServiceClientFallback implements CartServiceClient{
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Override
     public Cart getCart(String cartId) {
-
         logger.warn("Circuit breaker is Open. Cart Service not available.");
         return new Cart();
     }
