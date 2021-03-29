@@ -1,0 +1,36 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+ branches:
+  include:
+    - main
+ paths:
+   include:
+     - EBookStoreSpringBootMVC    
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'EBookStoreSpringBootMVC/pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'package'
+
+- task: AzureCLI@1
+  inputs:
+    azureSubscription: rt-spring-cloud
+    scriptLocation: inlineScript
+    inlineScript: |
+      az extension add -y --name spring-cloud
+       az spring-cloud app deploy -n bookstore-frontend -s rtspringcloud -g rt-springcloud_rg --jar-path EBookStoreSpringBootMVC/target/EBookStoreSpringBootMVC-0.0.1-SNAPSHOT.jar
+      # deploy other app
